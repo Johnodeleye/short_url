@@ -3,11 +3,12 @@ import { redirect } from 'next/navigation';
 import React from 'react'
 
 type RedirectPageProps = {
-    params: { shortcode: string };
+    params: { shortcode: any };
 };
 
-export default async function RedirectPage({ params }: RedirectPageProps) {
-    const { shortcode } = params; // No need to await here
+// export default async function RedirectPage({ params }: RedirectPageProps) {
+    export default async function RedirectPage({ params }: RedirectPageProps) {
+    const { shortcode } = params;
 
     const url = await prisma.url.findUnique({
         where: { shortCode: shortcode }
