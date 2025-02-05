@@ -1,12 +1,8 @@
 import prisma from '@/lib/db';
 import { redirect, notFound } from 'next/navigation';
 
-interface PageProps {
-  params: { shortcode: string };
-}
-
-export default async function RedirectPage({ params }: PageProps) {
-  const { shortcode } = params;
+export default async function RedirectPage({ params }: { params: Record<string, string> }) {
+  const shortcode = params?.shortcode; // Ensure it's accessed safely
 
   if (!shortcode) return notFound();
 
