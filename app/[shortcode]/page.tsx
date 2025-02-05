@@ -3,8 +3,9 @@ import { redirect } from 'next/navigation';
 import React from 'react'
 
 type RedirectPageProps = {
-    params: { shortcode: any };
+    params: { shortcode: string };
 };
+
 
 // export default async function RedirectPage({ params }: RedirectPageProps) {
     export default async function RedirectPage({ params }: RedirectPageProps) {
