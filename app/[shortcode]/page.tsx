@@ -1,17 +1,15 @@
-import type { Metadata, ResolvingMetadata } from 'next';
-import prisma from '@/lib/db';
 import { redirect } from 'next/navigation';
-import React from 'react'
+import prisma from '@/lib/db';
 
 type RedirectPageProps = {
-    params: { shortcode: string };
+    params: Record<string, string>; // ✅ Ensure params is a plain object, not a Promise
 };
 
 export default async function RedirectPage({ params }: RedirectPageProps) {
-    const { shortcode } = params; // No need for `await` here
+    const shortcode = params.shortcode; // ✅ No need to await
 
     const url = await prisma.url.findUnique({
-        where: { shortCode: shortcode } // Ensure `shortCode` is unique in your Prisma schema
+        where: { shortCode: shortcode } // Ensure `shortCode` is unique in Prisma schema
     });
 
     if (!url) {
@@ -25,4 +23,3 @@ export default async function RedirectPage({ params }: RedirectPageProps) {
 
     redirect(url.originalUrl);
 }
-
