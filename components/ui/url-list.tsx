@@ -7,7 +7,7 @@ import { Check, CheckCheckIcon, CopyIcon, EyeIcon } from 'lucide-react'
 type Url = {
   id: string;
   shortCode: string;
-  originalUrl: string;
+  originUrl: string;
   visits: number;
 }
 export default function UrlList() {
