@@ -8,9 +8,10 @@ interface RedirectPageProps {
 export default async function RedirectPage({ params }: RedirectPageProps) {
   const { shortcode } = params; 
 
-  const url = await prisma.url.findUnique({
-    where: { shortCode: shortcode } as any, // ✅ Quick fix
+  const url = await prisma.url.findFirst({
+    where: { shortCode: shortcode }, 
   });
+  
   
 
   if (!url) {
