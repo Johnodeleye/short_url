@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
     try {
-        const urls = await prisma.url.findMany ({
+        const urls = await prisma.url.findFirst ({
             orderBy: { createdAt: 'desc' },
             take: 5 , //the max of data showing on recent 
         });
