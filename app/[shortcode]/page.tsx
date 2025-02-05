@@ -1,21 +1,28 @@
 import prisma from '@/lib/db';
-import { redirect, notFound } from 'next/navigation';
+import { redirect } from 'next/navigation';
+import React from 'react';
 
-export default async function RedirectPage({ params }: { params: Record<string, string> }) {
-  const shortcode = params?.shortcode; // Ensure it's accessed safely
+interface RedirectPageProps {
+    params: { shortcode: string };
+}
 
-  if (!shortcode) return notFound();
+export default async function RedirectPage({ params }: RedirectPageProps) {
+    const { shortcode } = params;
 
-  const url = await prisma.url.findUnique({
-    where: { shortCode: shortcode }
-  });
+    const url = await prisma.url.findUnique({
+        where: { shortCode: shortcode }
+    });
 
-  if (!url) return notFound();
+    if (!url) {
+        return <div>404 - URL not found</div>;
+    }
 
-  await prisma.url.update({
-    where: { id: url.id },
-    data: { visits: { increment: 1 } },
-  });
+    await prisma.url.update({
+        where: {
+            id: url.id
+        },
+        data: { visits: { increment: 1 } },
+    });
 
-  redirect(url.originalUrl);
+    redirect(url.originalUrl);
 }
