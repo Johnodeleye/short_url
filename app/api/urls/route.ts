@@ -10,5 +10,6 @@ export async function GET() {
         return NextResponse.json(urls)
     } catch (error) {
         console.error('Error fetching Urls', error)
+        return NextResponse.json({ error: 'server eror'}, { status: 500})
     }
 }
