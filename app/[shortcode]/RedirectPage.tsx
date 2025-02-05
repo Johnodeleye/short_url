@@ -9,8 +9,9 @@ export default async function RedirectPage({ params }: RedirectPageProps) {
   const { shortcode } = params; 
 
   const url = await prisma.url.findUnique({
-    where: { shortCode: shortcode },
+    where: { shortCode: shortcode } as any, // ✅ Quick fix
   });
+  
 
   if (!url) {
     notFound();
