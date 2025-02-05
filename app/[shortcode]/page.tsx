@@ -1,14 +1,10 @@
 import prisma from '@/lib/db';
 import { redirect } from 'next/navigation';
-import React from 'react'
+import React from 'react';
 
-type RedirectPageProps = {
-    params: { shortcode: string };
-};
+export type ParamsType = { shortcode: string };
 
-
-// export default async function RedirectPage({ params }: RedirectPageProps) {
-    export default async function RedirectPage({ params }: RedirectPageProps) {
+export default async function RedirectPage({ params }: { params: ParamsType }) {
     const { shortcode } = params;
 
     const url = await prisma.url.findUnique({
