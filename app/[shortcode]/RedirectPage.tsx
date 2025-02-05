@@ -37,7 +37,7 @@ interface RedirectPageProps {
   params: { shortcode: string };
 }
 
-export default async function Page({ params }: RedirectPageProps) {
+export default async function RedirectPage({ params }: RedirectPageProps) {
   const { shortcode } = params; 
 
   const url = await prisma.url.findUnique({
