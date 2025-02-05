@@ -2,10 +2,10 @@ import prisma from '@/lib/db';
 import { redirect } from 'next/navigation';
 import React from 'react';
 
-export type ParamsType = { shortcode: string };
+export type ParamsType = Promise<{ shortcode: string }>;
 
-export default async function RedirectPage({ params }: { params: ParamsType }) {
-    const { shortcode } = params;
+export default async function RedirectPage({ params }: { params: Awaited<ParamsType> }) {
+    const { shortcode } = await params; // Awaiting params, even though it's not async
 
     const url = await prisma.url.findUnique({
         where: { shortCode: shortcode }
