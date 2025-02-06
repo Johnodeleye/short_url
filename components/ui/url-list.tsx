@@ -78,38 +78,47 @@ export default function UrlList() {
     )
   }
   return (
-    <div   className='px-6'>
+    <div className='px-6'>
       <h2 className="text-2xl font-bold mb-2">Recent URLs</h2>
-      <ul className='space-y-2'>
-        {urls.map((url) => (
-                  <li key={url.id} className='flex items-center gap-2 justify-between bg-card rounded-md text-card-foreground border p-3'>
-                  <Link 
-                  href={`${url.originalUrl}`}
-                  className='text-blue-500'
-                  target='_blank'
-                  >
-                    {shortenerUrl(url.shortCode)}
-                  </Link>
-               <div className='flex items-center gap-3'>
-                <Button variant='ghost' size='icon' 
-                onClick={()=> {handleCopyUrl(url.shortCode)}} className='text-muted-foreground hover:bg-muted'>
-                   {
-                    copied && copyUrl === url.shortCode ? (
-                      <Check className='w-4 h-4'/>
-                    ) : (
-                      <CopyIcon className='w-4 h-4'/>
-                    )
-                   }
-                    <span className="sr-only">Copy URL</span>
+  
+      {urls.length === 0 ? (
+        // Show message when no URLs are available
+        <p className="text-muted-foreground text-center">Your recent URLs will appear here</p>
+      ) : (
+        // Show the list when URLs exist
+        <ul className='space-y-2'>
+          {urls.map((url) => (
+            <li key={url.id} className='flex items-center gap-2 justify-between bg-card rounded-md text-card-foreground border p-3'>
+              <Link 
+                href={`${url.originalUrl}`}
+                className='text-blue-500'
+                target='_blank'
+              >
+                {shortenerUrl(url.shortCode)}
+              </Link>
+              <div className='flex items-center gap-3'>
+                <Button 
+                  variant='ghost' 
+                  size='icon' 
+                  onClick={() => handleCopyUrl(url.shortCode)} 
+                  className='text-muted-foreground hover:bg-muted'
+                >
+                  {copied && copyUrl === url.shortCode ? (
+                    <Check className='w-4 h-4'/>
+                  ) : (
+                    <CopyIcon className='w-4 h-4'/>
+                  )}
+                  <span className="sr-only">Copy URL</span>
                 </Button>
                 <span className="flex items-center gap-2">
-                  < EyeIcon className='h-4 w-4'/>
+                  <EyeIcon className='h-4 w-4'/>
                   {url.visits}
                 </span>
-               </div>
-               </li>
-        ))}
-      </ul>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
-  )
+  );
 }
