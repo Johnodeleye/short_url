@@ -33,11 +33,11 @@
 import prisma from '@/lib/db';
 import { redirect, notFound } from 'next/navigation';
 
-interface pageProps {
+interface RedirectPageProps {
   params: { shortcode: string };
 }
 
-export default async function page({ params }: pageProps) {
+export default async function RedirectPage({ params }: RedirectPageProps) {
   const { shortcode } = params; 
 
   const url = await prisma.url.findUnique({
@@ -47,7 +47,7 @@ export default async function page({ params }: pageProps) {
   
 
   if (!url) {
-    notFound();
+    return <div>URL NOT FOUND</div>
   }
 
   await prisma.url.update({

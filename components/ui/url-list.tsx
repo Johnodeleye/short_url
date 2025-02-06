@@ -7,7 +7,7 @@ import { Check, CheckCheckIcon, CopyIcon, EyeIcon } from 'lucide-react'
 type Url = {
   id: string;
   shortCode: string;
-  originUrl: string;
+  originalUrl: string;
   visits: number;
 }
 export default function UrlList() {
@@ -21,6 +21,7 @@ export default function UrlList() {
     `${process.env.NEXT_PUBLIC_BASE_URL}/${code}`;
 
   console.log(urls)
+
 
 
   const fetchUrls = async () => {
@@ -83,7 +84,7 @@ export default function UrlList() {
         {urls.map((url) => (
                   <li key={url.id} className='flex items-center gap-2 justify-between bg-card rounded-md text-card-foreground border p-3'>
                   <Link 
-                  href={`/${url.shortCode}`}
+                  href={`${url.originalUrl}`}
                   className='text-blue-500'
                   target='_blank'
                   >
